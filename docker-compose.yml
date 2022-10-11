@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+  stock-data-db:
+    image: "postgres"
+    hostname: "stock-data-db"
+    container_name: stock-data-db
+    environment:
+      - PGPASSWORD=postgres
+      - POSTGRES_DB=stock-data
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT=5445
+      - PGPORT=5445
+    ports:
+      - "5445:5445"
+    networks:
+      - stock-data-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 10
+
+networks:
+  stock-data-network:
+    name: stock-data
+    driver: bridge
