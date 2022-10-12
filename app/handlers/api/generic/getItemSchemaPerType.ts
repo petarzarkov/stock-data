@@ -1,12 +1,9 @@
-import { questionSchema, categorySchema, languageSchema } from "@app/handlers";
+import { stockSchema } from "@app/handlers";
 
 export const getItemSchemaPerType = (type: string) => {
-  switch (type) {
-    case "question":
-      return questionSchema;
-    case "language":
-      return languageSchema;
-    case "category":
-      return categorySchema;
-  }
+    const map = {
+        stock: stockSchema
+    };
+
+    return map[type as keyof typeof map];
 };

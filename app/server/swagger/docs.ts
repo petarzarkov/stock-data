@@ -3,7 +3,7 @@ import { SwaggerOptions } from "@fastify/swagger";
 import { generalError } from "./generalErrors";
 
 export const swagDocs: SwaggerOptions = {
-    routePrefix: "/documentation",
+    // routePrefix: "/documentation",
     swagger: {
         info: {
             title: "Stock Data API swagger",
@@ -32,19 +32,19 @@ export const swagDocs: SwaggerOptions = {
             "GeneralError": generalError
         },
     },
-    uiConfig: {
-        docExpansion: "list",
-        deepLinking: false
-    },
-    uiHooks: {
-        onRequest: function (_request, _reply, next) {
-            next();
-        },
-        preHandler: function (_request, _reply, next) {
-            next();
-        }
-    },
-    staticCSP: true,
-    transformStaticCSP: (header) => header,
-    exposeRoute: true,
+    // uiConfig: {
+    //     docExpansion: "list",
+    //     deepLinking: false
+    // },
+    // uiHooks: {
+    //     onRequest: function (_request, _reply, next) {
+    //         next();
+    //     },
+    //     preHandler: function (_request, _reply, next) {
+    //         next();
+    //     }
+    // },
+    // staticCSP: true,
+    // transformStaticCSP: (header) => header,
+    // exposeRoute: true,
 };

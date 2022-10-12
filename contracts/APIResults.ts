@@ -1,11 +1,11 @@
 export interface ISuccessResult<T> {
-  isSuccess: true;
-  result: T | undefined;
+    isSuccess: true;
+    result: T | undefined;
 }
 
-export interface IErrorResult {
-  isSuccess: false;
-  error: Error | unknown;
+export interface IErrorResult<ErrorType = Error | unknown> {
+    isSuccess: false;
+    error: ErrorType;
 }
 
 export const withResult = <T>(data: T | undefined): ISuccessResult<T> => ({ isSuccess: true, result: data });

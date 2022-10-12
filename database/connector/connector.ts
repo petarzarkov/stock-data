@@ -2,7 +2,7 @@ import * as pg from "pg";
 import { HotLogger } from "hot-utils";
 import { Options } from "sequelize";
 import { Model, ModelCtor, SequelizeOptions, Sequelize } from "sequelize-typescript";
-import { TblCategories, TblLanguages, TblQuestions } from "@db/models";
+import { TblStockTypes, TblStocks } from "@db/models";
 import { getOptions } from "@db/utils";
 
 const log = HotLogger.createLogger("@stock-data/db");
@@ -45,7 +45,7 @@ const establishConnection = async ({ config, models }: { config: SequelizeOption
         pool: { max: 50 },
         benchmark: true,
         logging: false,
-        models: models || [TblLanguages, TblCategories, TblQuestions],
+        models: models || [TblStockTypes, TblStocks],
         logQueryParameters: true,
     };
     sequelize = new Sequelize({ ...defaults, ...config });

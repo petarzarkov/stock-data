@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { withError } from "@contracts/APIResults";
 import { FastifyPluginAsync, FastifyRequest } from "fastify";
 import fp from "fastify-plugin";
@@ -26,7 +27,7 @@ const parseRequestLog = (request: FastifyRequest) => ({
 });
 
 const buildEvent = (
-    request: FastifyRequest<RouteGenericInterface, Server, IncomingMessage, unknown>
+    request: FastifyRequest<RouteGenericInterface, Server, IncomingMessage>
 ) => `${request.method}:${request.routerPath}`;
 
 const addLogger: FastifyPluginAsync<{ logger: HotLogger }> = async (

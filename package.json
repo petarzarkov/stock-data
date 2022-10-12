@@ -44,7 +44,7 @@
     "@fastify/cors": "8.1.0",
     "@fastify/swagger": "8.0.0",
     "fastify-plugin": "4.2.1",
-    "hot-utils": "1.4.2",
+    "hot-utils": "1.4.4",
     "pg": "8.8.0",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",

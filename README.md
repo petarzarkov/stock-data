@@ -7,7 +7,6 @@
   <a href="https://www.javascript.com/"><img title="JavaScript" alt="JavaScript" width="26px" height="26px" src="https://github.com/get-icon/geticon/raw/master/icons/javascript.svg" /></a>
   <a href="https://www.typescriptlang.org/"><img title="Typescript" alt="Typescript" width="26px" height="26px" src="https://github.com/get-icon/geticon/raw/master/icons/typescript-icon.svg" /></a>
   <a href="https://www.fastify.io/"><img title="Fastify" alt="Fastify" width="26px" height="26px" src="https://www.fastify.io/images/favicon-32x32.1e22f0e774bc3cce.png" /></a>
-  <a href="https://redis.io/"><img title="Redis" alt="Redis" width="26px" height="26px" src="https://redis.io/favicons/favicon-32x32.png" /></a>
   <a href="https://sequelize.org/"><img title="Sequelize" alt="Sequelize" width="26px" height="26px" src="https://sequelize.org/favicon.ico" /></a>
   <a href="https://nodejs.org/en/"><img title="NodeJS" alt="NodeJS" width="26px" height="26px" src="https://github.com/get-icon/geticon/raw/master/icons/nodejs-icon.svg" /></a>
   <a href="https://www.docker.com/"><img title="Docker" alt="Docker" width="26px" height="26px" src="https://github.com/get-icon/geticon/raw/master/icons/docker-icon.svg" /></a>

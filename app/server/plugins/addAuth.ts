@@ -5,7 +5,7 @@ import { RouteGenericInterface } from "fastify/types/route";
 import { Server, IncomingMessage, ServerResponse } from "http";
 
 export const checkHeader = (
-    request: FastifyRequest<RouteGenericInterface, Server, IncomingMessage, unknown>,
+    request: FastifyRequest<RouteGenericInterface, Server, IncomingMessage>,
     reply: FastifyReply<Server, IncomingMessage, ServerResponse, RouteGenericInterface, unknown>,
     next: HookHandlerDoneFunction
 ) => {

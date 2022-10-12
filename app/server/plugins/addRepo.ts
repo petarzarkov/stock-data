@@ -1,8 +1,8 @@
-import { CategoriesRepo, QuestionsRepo, LangRepo } from "@db/repositories";
+import { StockTypesRepo, StocksRepo } from "@db/repositories";
 import { FastifyPluginAsync } from "fastify";
 import fp from "fastify-plugin";
 
-type Repo = typeof CategoriesRepo | typeof QuestionsRepo | typeof LangRepo;
+type Repo = typeof StocksRepo | typeof StockTypesRepo;
 
 // Declaration merging
 declare module "fastify" {
@@ -12,9 +12,8 @@ declare module "fastify" {
 }
 
 const repos = {
-    questions: QuestionsRepo,
-    languages: LangRepo,
-    categories: CategoriesRepo
+    stocks: StocksRepo,
+    stockTypes: StockTypesRepo
 };
 
 const reposKeys = Object.keys(repos);

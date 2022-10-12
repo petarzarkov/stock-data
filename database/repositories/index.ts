@@ -1,4 +1,2 @@
-export * from "./BaseRepository";
-export * from "./CategoriesRepo";
-export * from "./QuestionsRepo";
-export * from "./LangRepo";
+export * from "./StocksRepo";
+export * from "./StockTypesRepo";
