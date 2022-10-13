@@ -2,16 +2,21 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { RouteGenericInterface } from "fastify/types/route";
 import { fail } from "hot-utils";
 import { Server, IncomingMessage, ServerResponse } from "http";
+import { Op } from "sequelize";
 
 export const stocks = async (
-    req: FastifyRequest<{ Querystring: { amount?: number; languageId?: number; categoryId?: number } }, Server, IncomingMessage>,
+    req: FastifyRequest<{ Querystring: { from: Date; to: Date } }, Server, IncomingMessage>,
     reply: FastifyReply<Server, IncomingMessage, ServerResponse, RouteGenericInterface>
 ) => {
-    // const { amount, languageId, categoryId } = req.query || {};
+    const { from, to } = req.query || {};
 
     const stocks = await req.repo?.getAll({
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        requestId: req.id
+        requestId: req.id,
+        where: {
+            buyTime: { [Op.gt]: from },
+            sellTime: { [Op.lt]: to },
+        }
     });
 
     if (!stocks?.isOk) {

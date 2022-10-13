@@ -1,5 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { RouteGenericInterface } from "fastify/types/route";
+import { fail } from "hot-utils";
 import { Server, IncomingMessage, ServerResponse } from "http";
 
 export const getCount = async (

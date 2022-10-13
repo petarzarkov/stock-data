@@ -7,26 +7,25 @@ export const stockSchema = {
     properties: {
         id: { type: "string", format: "uuid" },
         typeId: { type: "string", format: "uuid" },
-        buyTime: { type: "string" },
+        buyTime: { type: "string", format: "date" },
         buyPrice: { type: "number" },
-        sellTime: { type: "string" },
+        sellTime: { type: "string", format: "date" },
         sellPrice: { type: "number" },
-        createdAt: { type: "string" },
-        updatedAt: { type: "string" },
+        createdAt: { type: "string", format: "date" },
+        updatedAt: { type: "string", format: "date" },
     }
 };
 
 export const stocksSchema: FastifySchema & Record<string, unknown> = {
-    description: "Get all stocks",
+    description: "Get all stocks, from-to",
     tags: ["stocks"],
     summary: "Get Stocks",
     querystring: {
         type: "object",
         additionalProperties: false,
         properties: {
-            // amount: { type: "number", minimum: MIN_QUESTIONS, maximum: MAX_QUESTIONS },
-            // languageId: { type: "number" },
-            // categoryId: { type: "number" },
+            from: { type: "string", format: "date" },
+            to: { type: "string", format: "date" },
         }
     },
     response: {
