@@ -7,12 +7,14 @@ export const serviceRouter = (app: FastifyInstance, _options: FastifyPluginOptio
 
     app.get("/upcheck", {
         schema: {
+            description: "Is service up",
             tags: ["Service"]
         }
     }, upcheck);
 
     app.get("/healthcheck", {
         schema: {
+            description: "Is service healthy",
             tags: ["Service"],
             security: [
                 {
@@ -26,6 +28,7 @@ export const serviceRouter = (app: FastifyInstance, _options: FastifyPluginOptio
 
     app.post("/feeds", {
         schema: {
+            description: "Start/Run stocks feeders (Needs to be developed)",
             tags: ["Service"],
             body: {
                 type: "object",

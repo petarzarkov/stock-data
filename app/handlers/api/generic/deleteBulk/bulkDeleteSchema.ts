@@ -17,7 +17,7 @@ export const bulkDeleteSchema = (type: string): FastifySchema & Record<string, u
                 description: "Successful response",
                 type: "object",
                 properties: {
-                    isSuccess: { type: "boolean" },
+                    isOk: { type: "boolean" },
                     result: {
                         type: "number",
                     },

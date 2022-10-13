@@ -16,7 +16,7 @@ export class TblStocks extends Model<StockAttributes, StockCreationAttributes> {
     @Column({ autoIncrement: false, type: DataType.UUID, defaultValue: DataType.UUIDV4 })
     declare public id: string;
 
-    @HasOne(() => TblStockTypes, { foreignKey: "id", sourceKey: "type", as: "tblStockTypes" })
+    @HasOne(() => TblStockTypes, { foreignKey: "id", sourceKey: "typeId", as: "tblStockTypes" })
     @Column({ allowNull: false, type: DataType.UUID })
     declare public typeId: string;
 

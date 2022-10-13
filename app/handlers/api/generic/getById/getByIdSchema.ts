@@ -19,7 +19,7 @@ export const getByIdSchema = (type: string): FastifySchema & Record<string, unkn
             description: "Successful response",
             type: "object",
             properties: {
-                isSuccess: { type: "boolean" },
+                isOk: { type: "boolean" },
                 result: getItemSchemaPerType(type),
             }
         },

@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { RouteGenericInterface } from "fastify/types/route";
+import { fail } from "hot-utils";
 import { Server, IncomingMessage, ServerResponse } from "http";
-import { withError } from "@contracts/APIResults";
 
 export const bulkDelete = async (
     req: FastifyRequest<{ Body: string[] }, Server, IncomingMessage>,
@@ -14,12 +14,12 @@ export const bulkDelete = async (
 
     if (!bulkDelete?.isOk) {
         reply.status(500);
-        return withError("Oops, something happened.");
+        return fail("Oops, something happened.");
     }
 
     if (!bulkDelete.result) {
         reply.status(404);
-        return withError("Sorry, nothing deleted for the given ids.");
+        return fail("Sorry, nothing deleted for the given ids.");
     }
 
     return bulkDelete;

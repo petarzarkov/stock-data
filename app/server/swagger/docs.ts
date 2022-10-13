@@ -1,9 +1,27 @@
 import { APP_VERSION, isProd } from "@app/constants";
 import { SwaggerOptions } from "@fastify/swagger";
+import { FastifySwaggerUiOptions } from "@fastify/swagger-ui";
 import { generalError } from "./generalErrors";
 
+export const swagUi: FastifySwaggerUiOptions = {
+    routePrefix: "/documentation",
+    uiConfig: {
+        docExpansion: "list",
+        deepLinking: false
+    },
+    uiHooks: {
+        onRequest: function (_request, _reply, next) {
+            next();
+        },
+        preHandler: function (_request, _reply, next) {
+            next();
+        }
+    },
+    staticCSP: true,
+    transformStaticCSP: (header) => header
+};
+
 export const swagDocs: SwaggerOptions = {
-    // routePrefix: "/documentation",
     swagger: {
         info: {
             title: "Stock Data API swagger",
@@ -31,20 +49,5 @@ export const swagDocs: SwaggerOptions = {
         definitions: {
             "GeneralError": generalError
         },
-    },
-    // uiConfig: {
-    //     docExpansion: "list",
-    //     deepLinking: false
-    // },
-    // uiHooks: {
-    //     onRequest: function (_request, _reply, next) {
-    //         next();
-    //     },
-    //     preHandler: function (_request, _reply, next) {
-    //         next();
-    //     }
-    // },
-    // staticCSP: true,
-    // transformStaticCSP: (header) => header,
-    // exposeRoute: true,
+    }
 };

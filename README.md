@@ -23,9 +23,15 @@
 ## Development
 
 - Setup DB
-  - From root dir run
+  - with docker compose, from root dir run, tomato
     - `docker-compose up`
+  - or with docker container, tamato
+    - build the image 
+        - `docker build -f db.Dockerfile -t stock-data-db:local .`
+    - run it
+        - `docker container run -d -p 5445:5445 stock-data-db:local`
+  - Migrate and seed the db
+    - `npm install`
+    - `npm run db:update`
 - Start the service
-  - `npm install`
-  - `npm run db:update`
   - `npm start`

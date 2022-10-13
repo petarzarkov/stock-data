@@ -1,4 +1,4 @@
-import { FeedsMgr } from "@app/feeder";
+// import { FeedsMgr } from "@app/feeder";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { RouteGenericInterface } from "fastify/types/route";
 import { Server, IncomingMessage, ServerResponse } from "http";
@@ -9,16 +9,16 @@ export const feeds = async (
     _reply: FastifyReply<Server, IncomingMessage, ServerResponse, RouteGenericInterface, unknown>
 ) => {
     if (req.body.action === "stop") {
-        FeedsMgr.stopAll();
+        // FeedsMgr.stopAll();
 
         return {
             running: false
         };
     }
 
-    if (!FeedsMgr.areRunning) {
-        FeedsMgr.startAll();
-    }
+    // if (!FeedsMgr.areRunning) {
+    //     FeedsMgr.startAll();
+    // }
 
     return {
         running: true

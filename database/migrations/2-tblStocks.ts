@@ -9,7 +9,7 @@ module.exports = {
                 type: DataTypes.UUID,
                 defaultValue: literal("gen_random_uuid()")
             },
-            categoryId: {
+            typeId: {
                 allowNull: false,
                 type: Sequelize.UUID,
                 references: {

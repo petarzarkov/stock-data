@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { withError } from "@contracts/APIResults";
 import { FastifyPluginAsync, FastifyRequest } from "fastify";
 import fp from "fastify-plugin";
 import { RouteGenericInterface } from "fastify/types/route";
-import { HotLogger } from "hot-utils";
+import { HotLogger, fail } from "hot-utils";
 import { Server, IncomingMessage } from "http";
 
 // Declaration merging
@@ -28,7 +27,7 @@ const parseRequestLog = (request: FastifyRequest) => ({
 
 const buildEvent = (
     request: FastifyRequest<RouteGenericInterface, Server, IncomingMessage>
-) => `${request.method}:${request.routerPath}`;
+) => `${request.method}:${request.routerPath || request.url}`;
 
 const addLogger: FastifyPluginAsync<{ logger: HotLogger }> = async (
     fastify,
@@ -86,7 +85,7 @@ const addLogger: FastifyPluginAsync<{ logger: HotLogger }> = async (
                 event: buildEvent(req),
                 request: parseRequestLog(req)
             });
-            reply.status(400).send(withError(error.message));
+            reply.status(400).send(fail(error.message));
             return;
         }
 

@@ -2,7 +2,7 @@ import { getItemSchemaPerType } from "@app/handlers";
 import { generalErrors } from "@app/server/swagger/generalErrors";
 import { FastifySchema } from "fastify";
 
-export const bulkCreateSchema = (type: string): FastifySchema & Record<string, unknown> => {
+export const bulkCreateSchema = (type: string, tag?: string): FastifySchema & Record<string, unknown> => {
     const schema = getItemSchemaPerType(type);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id, ...rest } = schema?.properties || {};
@@ -10,7 +10,7 @@ export const bulkCreateSchema = (type: string): FastifySchema & Record<string, u
 
     return {
         description: `Bulk create/edit ${type}`,
-        tags: [type],
+        tags: [tag || type],
         summary: `Bulk create/edit ${type}`,
         body: {
             type: "array",
@@ -25,7 +25,7 @@ export const bulkCreateSchema = (type: string): FastifySchema & Record<string, u
                 description: "Successful response",
                 type: "object",
                 properties: {
-                    isSuccess: { type: "boolean" },
+                    isOk: { type: "boolean" },
                     result: {
                         type: "array",
                         items: schema

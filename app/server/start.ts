@@ -1,11 +1,12 @@
 import { fastify } from "fastify";
 import fcors from "@fastify/cors";
 import { fastifySwagger } from "@fastify/swagger";
+import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import { Sequelize } from "sequelize";
 import { HotLogger } from "hot-utils";
 import { apiRouter, apiRouterAuth, serviceRouter } from "@app/routers";
 import { addStoragePlugin, addLoggerPlugin } from "./plugins";
-import { swagDocs } from "./swagger";
+import { swagDocs, swagUi } from "./swagger";
 import { isProd, SERVER_PORT } from "@app/constants";
 import { v4 } from "uuid";
 import Ajv from "ajv";
@@ -17,7 +18,8 @@ export const startServer = async (logger: HotLogger, sq?: Sequelize) => {
         genReqId: () => v4()
     });
 
-    app.setValidatorCompiler(({ schema, httpPart }) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    app.setValidatorCompiler(({ schema, httpPart }): any => {
         const defaultSchema = new Ajv({
             removeAdditional: true,
             useDefaults: true,
@@ -37,6 +39,7 @@ export const startServer = async (logger: HotLogger, sq?: Sequelize) => {
     app.register(fcors);
     app.register(addLoggerPlugin, { logger });
     app.register(fastifySwagger, swagDocs);
+    app.register(fastifySwaggerUi, swagUi);
     app.register(addStoragePlugin, { sq });
     app.register(apiRouter, { prefix: "api" });
     app.register(apiRouterAuth, { prefix: "api" });

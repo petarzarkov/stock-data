@@ -17,12 +17,3 @@ export const SERVER_PORT = Number(process.env.PORT) || 3001;
  */
 export const CACHE_REFRESH_INTERVAL = Number(process.env.CACHE_REFRESH_INTERVAL) || 2 * 60 * 1000;
 
-/**
- * @default 20
- */
-export const MIN_QUESTIONS = Number(process.env.MIN_QUESTIONS) || 20;
-
-/**
- * @default 100
- */
-export const MAX_QUESTIONS = Number(process.env.MAX_QUESTIONS) || 100;

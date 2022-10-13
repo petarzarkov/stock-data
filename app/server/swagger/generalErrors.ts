@@ -1,7 +1,7 @@
 export const generalError = {
     type: "object",
     properties: {
-        isSuccess: { type: "boolean", default: false },
+        isOk: { type: "boolean", default: false },
         error: {
             type: "string",
             nullable: true,

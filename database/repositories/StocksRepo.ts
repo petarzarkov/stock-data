@@ -19,4 +19,3 @@ export const StocksRepo = new BaseSequelizeRepo({
     mapTableToDTO,
     logger: { enabled: true }
 });
-

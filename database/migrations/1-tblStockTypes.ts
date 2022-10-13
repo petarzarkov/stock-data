@@ -14,10 +14,19 @@ module.exports = {
                 unique: true,
                 type: Sequelize.STRING(128)
             },
+            createdAt: {
+                allowNull: true,
+                type: Sequelize.DATE(3),
+                defaultValue: new Date()
+            },
+            updatedAt: {
+                allowNull: true,
+                type: Sequelize.DATE(3)
+            },
         });
     },
 
     down: async (queryInterface: QueryInterface) => {
-        await queryInterface.dropTable("tblStockTypes", { force: true });
+        await queryInterface.dropTable("tblStockTypes", { force: true, cascade: true });
     }
 };

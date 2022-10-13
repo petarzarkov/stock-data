@@ -1,6 +1,9 @@
 import { StockTypesAttributes, StockCreationAttributes } from "@db/models";
 import SequelizeType, { QueryInterface } from "sequelize";
 
+const initialBuyTime = Date.now() - 10000;
+const nOfMockedStocks = 1000;
+
 const baseStocks: (Omit<StockCreationAttributes, "typeId">)[] = [{
     buyPrice: 1,
     buyTime: new Date(Date.now() - 10000),
@@ -13,12 +16,21 @@ const baseStocks: (Omit<StockCreationAttributes, "typeId">)[] = [{
 module.exports = {
     up: async (queryInterface: QueryInterface, Sequelize: typeof SequelizeType) => {
         return queryInterface.sequelize.transaction(async transaction => {
-            const stockTypes = await queryInterface.sequelize.query<StockTypesAttributes>("SELECT * from \"tblStocks\"", { type: Sequelize.QueryTypes.SELECT, transaction });
-            const stocks = baseStocks.map(q => ({
-                ...q,
-                typeId: stockTypes?.[0]?.id,
-            }));
-            await queryInterface.bulkInsert("tblStocks", stocks, { transaction });
+            const stockTypes = await queryInterface.sequelize.query<StockTypesAttributes>("SELECT * from \"tblStockTypes\"", { type: Sequelize.QueryTypes.SELECT, transaction });
+
+            const mockStocks = [...Array(nOfMockedStocks).keys()].map((n) => {
+
+                return {
+                    typeId: stockTypes?.[0],
+                    buyPrice: n + 0.01,
+                    buyTime: new Date(initialBuyTime + 100 + n),
+                    sellPrice: 2,
+                    sellTime: new Date(),
+                    updatedAt: new Date(),
+                    createdAt: new Date(),
+                };
+            });
+            await queryInterface.bulkInsert("tblStocks", mockStocks, { transaction });
         });
 
     },

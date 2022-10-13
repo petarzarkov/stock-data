@@ -10,7 +10,7 @@ export const getCountSchema = (type: string): FastifySchema & Record<string, unk
             description: "Successful response",
             type: "object",
             properties: {
-                isSuccess: { type: "boolean" },
+                isOk: { type: "boolean" },
                 result: { type: "number" },
             }
         },

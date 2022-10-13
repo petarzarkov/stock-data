@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { RouteGenericInterface } from "fastify/types/route";
+import { fail } from "hot-utils";
 import { Server, IncomingMessage, ServerResponse } from "http";
-import { withError } from "@contracts/APIResults";
 
 export const getById = async (
     req: FastifyRequest<{ Params: { id: string } }, Server, IncomingMessage>,
@@ -16,12 +16,12 @@ export const getById = async (
 
     if (!findById?.isOk) {
         reply.status(500);
-        return withError("Oops, something happened.");
+        return fail("Oops, something happened.");
     }
 
     if (!findById.result) {
         reply.status(404);
-        return withError("Sorry, nothing found for the given id.");
+        return fail("Sorry, nothing found for the given id.");
     }
 
     return findById;
