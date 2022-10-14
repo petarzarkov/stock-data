@@ -29,6 +29,7 @@ export const Footer = () => {
                 align={{ base: "center", md: "center" }}>
                 <Text>{`©️ Petar Zarkov ${new Date().getFullYear()}`}</Text>
                 <Stack direction={"row"} spacing={6}>
+                    <Socials.SwaggerDocs />
                     <Socials.LinkedIn />
                     <Socials.GitHub />
                 </Stack>

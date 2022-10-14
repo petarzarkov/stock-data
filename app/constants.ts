@@ -20,8 +20,8 @@ export const STOCKS_FROM = process.env.STOCKS_FROM ?
     : new Date(2022,1,1,6).getTime();
 
 /**
- * @default "2022-02-01T06:40:00.000Z" in unix ms
+ * @default "2022-02-01T08:00:00.000Z" in unix ms
  */
 export const STOCKS_TO = process.env.STOCKS_TO ?
-    new Date(...process.env.STOCKS_TO?.split(",")?.map(t => Number(t.trim())) as [number] || 2022,1,1,6,40).getTime()
-    : new Date(2022,1,1,6,40).getTime();
+    new Date(...process.env.STOCKS_TO?.split(",")?.map(t => Number(t.trim())) as [number] || 2022,1,1,8).getTime()
+    : new Date(2022,1,1,8).getTime();

@@ -1,11 +1,11 @@
 import React, { FC } from "react";
-import { Box, useColorModeValue, Tag, TagLabel, TagRightIcon } from "@chakra-ui/react";
+import { Box, Tag, TagLabel, TagRightIcon } from "@chakra-ui/react";
 import { baseServerCall } from "@store";
 import { GiHeartPlus, GiHeartMinus } from "react-icons/gi";
 import { QueryForm } from "@components";
 
 export const Home: FC = () => {
-    const color = useColorModeValue("primary.900", "primary.300");
+    // const color = useColorModeValue("primary.900", "primary.300");
     const elementRef = React.useRef(null);
     const [isHealthy, setIsHealthy] = React.useState(false);
 

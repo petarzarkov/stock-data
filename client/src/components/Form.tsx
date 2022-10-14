@@ -6,16 +6,19 @@ import {
     FormLabel,
     Input,
     InputGroup,
-    useColorModeValue
+    useColorModeValue,
+    Text,
+    VStack
 } from "@chakra-ui/react";
 import { BaseModal, Title } from "@components";
-import { Field, Form, Formik, FormikHelpers, FieldProps } from "formik";
+import { Field, Form, Formik, FieldProps } from "formik";
 import { useThemeProvider } from "@hooks";
+import { getOptimalStock } from "@store";
 
-type FormValues = { from?: number; to?: number; message?: string };
+type FormValues = { from: string; to: string };
 
 export const QueryForm = () => {
-    const [showModal, setShowModal] = useState<{ show: true; response: string } | { show: false; response?: string }>({ show: false });
+    const [showModal, setShowModal] = useState<{ show: boolean; response: `${string};${string}` }>({ show: false, response: "OK;OK?" });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { from, to } = useThemeProvider();
 
@@ -36,22 +39,26 @@ export const QueryForm = () => {
         to: getUtcDate(to)
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const submitForm = (_values: FormValues, _actions: FormikHelpers<FormValues>) => {
+    const submitForm = async (values: FormValues) => {
         setIsSubmitting(true);
-        // return emailjs.send(email.serviceId, email.templateId, {
-        //     from_name: values.name,
-        //     message: values.message,
-        //     reply_to: values.email
-        // }, email.userId)
-        //     .then(() => {
-        //         setShowModal({ show: true, response: "Email sent." });
-        //         actions.setSubmitting(false);
-        //     }, () => {
-        //         setShowModal({ show: true, response: "Error on sending email." });
-        //         actions.setSubmitting(false);
-        //     });
-        setShowModal({ show: true, response: "All good." });
+
+        const [hoursFrom, minutesFrom] = values.from.split(":");
+        const [hoursTo, minutesTo] = values.to.split(":");
+        const payload = {
+            from: new Date(utcDates.from.fullDatetime.replace(`${utcDates.from.hours}:${utcDates.from.minutes}`, `${hoursFrom}:${minutesFrom}`)).getTime(),
+            to: new Date(utcDates.to.fullDatetime.replace(`${utcDates.to.hours}:${utcDates.to.minutes}}`, `${hoursTo}:${minutesTo}`)).getTime()
+        };
+
+        const res = await getOptimalStock(payload);
+
+        setShowModal({
+            show: true,
+            response: res.isOk && res.result ?
+                `Most optimal from:; ${new Date(res.result.from).toUTCString()}; To:; ${new Date(res.result.to).toUTCString()}; Profit:; ${res.result.profit.toString()}`
+                :
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                `Error; ${!res.isOk && res.error}`
+        });
 
         setIsSubmitting(false);
     };
@@ -64,7 +71,16 @@ export const QueryForm = () => {
             />
             {showModal.show
             &&
-            <BaseModal title="Stocks evaluation" content={showModal.response} isOpen={showModal.show} onClose={() => setShowModal({ show: false })} />
+            <BaseModal
+                title="Stocks evaluation"
+                content={
+                    <VStack>
+                        {showModal.response.split(";").map((r, i) => <Text key={`${r}-${i}`}>{r}</Text>)}
+                    </VStack>
+                }
+                isOpen={showModal.show}
+                onClose={() => setShowModal({ show: false, response: "OK;OK?" })}
+            />
             }
 
             <Box
@@ -74,23 +90,20 @@ export const QueryForm = () => {
                 color={useColorModeValue("primary.700", "primary.50")}
                 shadow="base">
                 <Formik<FormValues>
-                    initialValues={{ from: undefined, to: undefined }}
+                    initialValues={{ from: `${utcDates.from.hours}:${utcDates.from.minutes}:${utcDates.from.seconds}`, to: `${utcDates.to.hours}:${utcDates.to.minutes}:${utcDates.to.seconds}` }}
                     onSubmit={submitForm}
                 >
                     {() => (
                         <Form>
                             <Field name='from'>
                                 {({ field }: FieldProps<string | number | readonly string[] | undefined, FormValues>) => (
-                                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
                                     <FormControl isRequired marginBottom={5}>
                                         <FormLabel htmlFor='from'>{"From:"}</FormLabel>
                                         <InputGroup>
-                                            {/* <Text>{`Min: ${utcDates.from.fullDatetime}`}</Text> */}
                                             <Input
                                                 {...field}
                                                 type="time"
                                                 id="from"
-                                                defaultValue={`${utcDates.from.hours}:${utcDates.from.minutes}:${utcDates.from.seconds}`}
                                                 min={`${utcDates.from.hours}:${utcDates.from.minutes}:${utcDates.from.seconds}`}
                                                 max={`${utcDates.to.hours}:${utcDates.to.minutes}:${utcDates.to.seconds}`}
                                             />
@@ -103,12 +116,11 @@ export const QueryForm = () => {
                                     <FormControl isRequired marginBottom={5}>
                                         <FormLabel htmlFor='to'>{"To:"}</FormLabel>
                                         <InputGroup>
-                                            {/* <InputAddon>{`Max: ${utcDates.to.fullDatetime}`}</InputAddon> */}
                                             <Input
                                                 {...field}
                                                 type="time"
                                                 id="to"
-                                                defaultValue={`${utcDates.to.hours}:${utcDates.to.minutes}:${utcDates.to.seconds}`}
+                                                // defaultValue={`${utcDates.to.hours}:${utcDates.to.minutes}:${utcDates.to.seconds}`}
                                                 min={`${utcDates.from.hours}:${utcDates.from.minutes}:${utcDates.from.seconds}`}
                                                 max={`${utcDates.to.hours}:${utcDates.to.minutes}:${utcDates.to.seconds}`}
                                             />

@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { about } from "@config";
 import { BsGithub, BsLinkedin, BsTwitter } from "react-icons/bs";
+import { SiSwagger } from "react-icons/si";
 import { IconLink as IconLinkBase } from "@components";
 import { Flex, useColorModeValue } from "@chakra-ui/react";
 
@@ -19,6 +20,11 @@ const IconLink: FC<Parameters<typeof IconLinkBase>[0]> = (props) => <FlexIcon>
 </FlexIcon>;
 
 export const Socials = {
+    SwaggerDocs: () => <IconLink
+        to={about.swagger}
+        icon={<SiSwagger size="28px" />}
+        label={"Docs"}
+    />,
     GitHub: ({ to = about.github }) => <IconLink
         to={to}
         icon={<BsGithub />}

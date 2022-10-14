@@ -24,8 +24,7 @@ export default defineConfig(({ mode }) => {
                         "react-icons/tb": ["react-icons/tb"],
                         "react-icons/fa": ["react-icons/fa"],
                         "react-icons/vsc": ["react-icons/vsc"],
-                        "react-icons/ai": ["react-icons/ai"],
-                        "framer-motion": ["framer-motion"]
+                        "react-icons/ai": ["react-icons/ai"]
                     }
                 }
             }

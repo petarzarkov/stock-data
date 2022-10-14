@@ -11,7 +11,6 @@ export const BaseModal: FC<{ content: ReactElement | string; title: string; isOp
                 isOpen={isOpen}
                 onClose={onClose}
                 motionPreset={"slideInRight"}
-                size="xs"
             >
                 <ModalOverlay />
                 <ModalContent>

@@ -1,5 +1,6 @@
 import { fastify } from "fastify";
 import fcors from "@fastify/cors";
+import fstatic from "@fastify/static";
 import { fastifySwagger } from "@fastify/swagger";
 import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import { Sequelize } from "sequelize";
@@ -9,6 +10,7 @@ import { addStoragePlugin, addLoggerPlugin } from "./plugins";
 import { swagDocs, swagUi } from "./swagger";
 import { isProd, SERVER_PORT } from "@app/constants";
 import { v4 } from "uuid";
+import path from "path";
 import Ajv from "ajv";
 import addFormats from "ajv-formats";
 
@@ -45,6 +47,9 @@ export const startServer = async (logger: HotLogger, sq?: Sequelize) => {
     app.register(apiRouter, { prefix: "api" });
     app.register(apiRouterAuth, { prefix: "api" });
     app.register(serviceRouter, { prefix: "service" });
+    app.register(fstatic, {
+        root: path.join(__dirname, "..", "..", "..", "client", "dist")
+    });
 
     app.ready(err => {
         if (err) {
