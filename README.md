@@ -4,6 +4,10 @@
   <a href="https://github.com/petarzarkov/stock-data/actions/"><img src="https://github.com/petarzarkov/stock-data/actions/workflows/build.yml/badge.svg?branch=main" alt="Build status"></a>
   <a href="https://github.com/petarzarkov/stock-data/blob/main/LICENSE"><img src="https://img.shields.io/github/license/petarzarkov/stock-data" alt="License"></a>
   <p style="color: gray;">Stack</p>
+  <a href="https://pnpm.io/" target="blank"><img title="pnpm" alt="pnpm" width="26" src="https://pnpm.io/img/favicon.png" /></a>
+  <a href="https://vitejs.dev/" target="blank"><img title="ViteJS" alt="ViteJS" width="26" src="https://vitejs.dev/logo.svg" /></a>
+  <a href="https://chakra-ui.com/" target="blank"><img title="ChakraUI" alt="ChakraUI" width="26" src="https://chakra-ui.com/favicon.png" /></a>
+  <a href="https://reactjs.org/" target="blank"><img title="React" alt="React" width="26" src="https://reactnative.dev/img/pwa/manifest-icon-512.png" /></a>
   <a href="https://www.javascript.com/"><img title="JavaScript" alt="JavaScript" width="26px" height="26px" src="https://github.com/get-icon/geticon/raw/master/icons/javascript.svg" /></a>
   <a href="https://www.typescriptlang.org/"><img title="Typescript" alt="Typescript" width="26px" height="26px" src="https://github.com/get-icon/geticon/raw/master/icons/typescript-icon.svg" /></a>
   <a href="https://www.fastify.io/"><img title="Fastify" alt="Fastify" width="26px" height="26px" src="https://www.fastify.io/images/favicon-32x32.1e22f0e774bc3cce.png" /></a>

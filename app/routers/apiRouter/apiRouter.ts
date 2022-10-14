@@ -2,7 +2,7 @@ import { STOCKS_FROM, STOCKS_TO } from "@app/constants";
 import {
     stocks, stocksSchema, getById, getByIdSchema,
     delByIdSchema, delById, bulkCreate, bulkCreateSchema,
-    bulkDelete, bulkDeleteSchema, getCount, getCountSchema, stockTypesSchema, stockTypes
+    bulkDelete, bulkDeleteSchema, getCount, getCountSchema, stockTypesSchema, stockTypes, getRandom, getRandomSchema
 } from "@app/handlers";
 import { addRepoPlugin, addAuthPlugin } from "@app/server/plugins";
 import { generalErrors } from "@app/server/swagger/generalErrors";
@@ -44,6 +44,7 @@ export const apiRouter = (app: FastifyInstance, _options: FastifyPluginOptions, 
         }
     });
     app.get("/stocks", { schema: stocksSchema }, stocks);
+    app.get("/stocks/random", { schema: getRandomSchema("stock", "stocks") }, getRandom);
     app.get("/stock/types", { schema: stockTypesSchema }, stockTypes);
 
     app.get("/stock/:id", { schema: getByIdSchema("stock") }, getById);

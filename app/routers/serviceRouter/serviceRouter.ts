@@ -16,10 +16,8 @@ export const serviceRouter = (app: FastifyInstance, _options: FastifyPluginOptio
         schema: {
             description: "Is service healthy",
             tags: ["Service"]
-        },
-        preHandler: checkHeader,
-        handler: healthcheck
-    });
+        }
+    }, healthcheck);
 
     app.post("/feeds", {
         schema: {

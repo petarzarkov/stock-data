@@ -53,7 +53,7 @@
     "config": "3.3.8",
     "fastify": "4.8.1",
     "fastify-plugin": "4.2.1",
-    "hot-utils": "1.4.7",
+    "hot-utils": "1.4.8",
     "pg": "8.8.0",
     "reflect-metadata": "0.1.13",
     "sequelize": "6.25.0",
