@@ -10,8 +10,12 @@ const hc = (url: string) => HotRequests.get({
     }
 });
 
+/**
+ * Doing this so Heroku doesn't put the app to sleep
+ * so we have some form of high availability
+ */
 export const startHealtcheck = async () => {
-    const url = isProd ? `http://localhost:${SERVER_PORT}` : `http://localhost:${SERVER_PORT}`;
+    const url = isProd ? "https://stock-data-app.herokuapp.com/" : `http://localhost:${SERVER_PORT}`;
     // Ping right away
     await hc(url);
     // Ping every 20 min
