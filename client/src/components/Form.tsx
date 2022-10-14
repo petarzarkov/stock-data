@@ -5,12 +5,8 @@ import {
     FormControl,
     FormLabel,
     Input,
-    InputAddon,
     InputGroup,
-    InputLeftAddon,
-    Stack,
-    useColorModeValue,
-    Text,
+    useColorModeValue
 } from "@chakra-ui/react";
 import { BaseModal, Title } from "@components";
 import { Field, Form, Formik, FormikHelpers, FieldProps } from "formik";
@@ -40,7 +36,8 @@ export const QueryForm = () => {
         to: getUtcDate(to)
     };
 
-    const submitForm = (values: FormValues, actions: FormikHelpers<FormValues>) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const submitForm = (_values: FormValues, _actions: FormikHelpers<FormValues>) => {
         setIsSubmitting(true);
         // return emailjs.send(email.serviceId, email.templateId, {
         //     from_name: values.name,

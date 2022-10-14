@@ -10,6 +10,7 @@ import { swagDocs, swagUi } from "./swagger";
 import { isProd, SERVER_PORT } from "@app/constants";
 import { v4 } from "uuid";
 import Ajv from "ajv";
+import addFormats from "ajv-formats";
 
 export const startServer = async (logger: HotLogger, sq?: Sequelize) => {
     const app = fastify({
@@ -19,20 +20,20 @@ export const startServer = async (logger: HotLogger, sq?: Sequelize) => {
     });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    app.setValidatorCompiler(({ schema, httpPart }): any => {
+    app.setValidatorCompiler(({ schema, httpPart }) => {
         const defaultSchema = new Ajv({
             removeAdditional: true,
             useDefaults: true,
-            coerceTypes: false,
-            nullable: true
+            coerceTypes: false
         });
         const querySchema = new Ajv({
             removeAdditional: true,
             useDefaults: true,
-            coerceTypes: true,
-            nullable: true
+            coerceTypes: true
         });
 
+        addFormats(defaultSchema);
+        addFormats(querySchema);
         return httpPart === "querystring" ? querySchema.compile(schema) : defaultSchema.compile(schema);
     });
 
