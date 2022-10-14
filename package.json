@@ -26,9 +26,9 @@
     "db:revert": "npm run predb && npm run db:seed:undo && npm run db:migrate:undo",
     "lint": "eslint -c .eslintrc.js --ext .ts,.tsx --max-warnings 0",
     "lint:fix": "npm run lint --fix",
-    "heroku-prebuild": "npm i -g pnpm && pnpm install",
-    "heroku-postbuild": "npm run db:update && npm --prefix ./client run build && rm -r ./client/node_modules",
-    "heroku-cleanup": "pnpm prune"
+    "heroku-prebuild": "npm i && npm --prefix ./client install",
+    "heroku-postbuild": "npm run db:update && npm --prefix ./client run build",
+    "heroku-cleanup": "npm prune && rm -r ./client/node_modules"
   },
   "repository": {
     "type": "git",
