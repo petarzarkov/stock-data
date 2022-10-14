@@ -2,6 +2,10 @@
   "name": "stock-data",
   "version": "0.0.1",
   "description": "Stock Data Web App + API",
+  "engines": {
+    "node": ">= 14.16.0",
+    "pnpm": ">= 7.2.1"
+  },
   "main": "build/app/main.js",
   "scripts": {
     "start": "node build/app/main.js",
@@ -42,13 +46,6 @@
     "url": "https://github.com/petarzarkov/stock-data/issues"
   },
   "homepage": "https://github.com/petarzarkov/stock-data#readme",
-  "resolutions": {
-    "@types/node": "18.8.5",
-    "typescript": "4.8.4",
-    "eslint": "8.25.0",
-    "@typescript-eslint/eslint-plugin": "5.40.0",
-    "@typescript-eslint/parser": "5.40.0"
-  },
   "dependencies": {
     "@fastify/cors": "8.1.0",
     "@fastify/swagger": "8.0.0",
@@ -67,16 +64,16 @@
     "ajv-formats": "2.1.1"
   },
   "devDependencies": {
-    "@types/node": "workspace:*",
+    "@types/node": "18.8.5",
     "@types/pg": "8.6.5",
     "@types/uuid": "8.3.4",
-    "@typescript-eslint/eslint-plugin": "workspace:*",
-    "@typescript-eslint/parser": "workspace:*",
-    "eslint": "workspace:*",
+    "@typescript-eslint/eslint-plugin": "5.40.0",
+    "@typescript-eslint/parser": "5.40.0",
+    "eslint": "8.25.0",
     "rimraf": "3.0.2",
     "nodemon": "2.0.20",
     "sequelize-cli": "6.5.1",
     "tsc-alias": "1.7.0",
-    "typescript": "workspace:*"
+    "typescript": "4.8.4"
   }
 }
