@@ -1,3 +1,7 @@
+## Showcase
+- [App](https://stock-data-app.herokuapp.com/)
+- [API docs](https://stock-data-app.herokuapp.com/documentation)
+
 <div align="center" style="background-color: rgb(149 150 150 / 35%); border-radius: 10px;">
   <h1>Stock Data</h1>
   <p>App and API</p>
@@ -18,11 +22,6 @@
   <a href="https://code.visualstudio.com/" title="Visual Studio Code"><img src="https://github.com/get-icon/geticon/raw/master/icons/visual-studio-code.svg" alt="Visual Studio Code" width="26px" height="26px"></a>
   <a href="https://eslint.org/" title="ESLint"><img src="https://github.com/get-icon/geticon/raw/master/icons/eslint.svg" alt="ESLint" width="26px" height="26px"></a>
 </div>
-
-## API
-
-<!-- - [API docs](https://stock-data.herokuapp.com/documentation)
-- [Get stock](https://stock-data.herokuapp.com/api/stock) -->
 
 ## Development
 - `npm i -g pnpm`

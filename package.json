@@ -5,10 +5,10 @@
   "engines": {
     "node": "16.x"
   },
-  "main": "build/app/main.js",
+  "main": "build/server/main.js",
   "scripts": {
-    "start": "node build/app/main.js",
-    "dev": "nodemon node build/app/main.js",
+    "start": "node build/server/main.js",
+    "dev": "nodemon node build/server/main.js",
     "prebuild": "rimraf build cache/ts.build",
     "build": "tsc -p tsconfig.json --diagnostics",
     "postbuild": "tsc-alias",
@@ -16,7 +16,7 @@
     "build:watch": "tsc -w",
     "baw": "tsc-alias -w",
     "bns": "npm run build && npm run start",
-    "predb": "rimraf build/app/database cache/ts.build && npm run build",
+    "predb": "rimraf build/server/database cache/ts.build && npm run build",
     "db:create": "npm run predb && node .bin/exec . sequelize db:create",
     "db:update": "npm run predb && npm run db:migrate && npm run db:seed",
     "db:migrate": "node .bin/exec . sequelize db:migrate",

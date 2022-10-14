@@ -1,5 +1,5 @@
 /* eslint-disable no-unsafe-optional-chaining */
-import { isProd } from "@app/constants";
+import { isProd } from "@server/constants";
 import { Options, Dialect } from "sequelize";
 
 export const getOptions = (): Options => {

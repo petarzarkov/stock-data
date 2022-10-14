@@ -1,4 +1,4 @@
-import { STOCKS_FROM, STOCKS_TO } from "@app/constants";
+import { STOCKS_FROM, STOCKS_TO } from "@server/constants";
 import { StockTypesAttributes, StockCreationAttributes } from "@db/models";
 import SequelizeType, { QueryInterface } from "sequelize";
 
