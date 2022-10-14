@@ -1,5 +1,5 @@
 import React from "react";
-import { storeData, getData } from "@store";
+import { storeData, getData, getPeriodRanges } from "@store";
 import { ProviderBase, ThemeContext, ContextSettings } from "./ThemeContext";
 import { themes, ColorTheme } from "@theme";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -10,9 +10,11 @@ export class ThemeProvider extends React.Component<{ children: React.ReactNode }
         theme: "gray",
         colors: themes.gray,
         isLoading: false,
+        from: 0,
+        to: 0
     };
 
-    componentDidMount() {
+    async componentDidMount() {
         this.setState({ isLoading: true });
         const settings = getData<ContextSettings>("latest_settings");
         if (settings && themes[settings.theme]) {
@@ -23,7 +25,12 @@ export class ThemeProvider extends React.Component<{ children: React.ReactNode }
                 }),
             });
         }
-
+        const ranges = await getPeriodRanges();
+        if (ranges.isOk && ranges.result) {
+            this.setState({
+                ...ranges.result
+            });
+        }
         this.setState({ isLoading: false });
     }
 
@@ -39,7 +46,7 @@ export class ThemeProvider extends React.Component<{ children: React.ReactNode }
             <ThemeContext.Provider
                 value={{
                     ...this.state,
-                    setTheme: this.setTheme,
+                    setTheme: this.setTheme
                 }}
             >
                 <ChakraProvider theme={this.state.colors}>

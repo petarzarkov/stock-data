@@ -10,6 +10,8 @@ export type ProviderBase = Expand<
 {
     colors: Record<string, string>;
     isLoading: boolean;
+    from: number;
+    to: number;
 } & ContextSettings
 >;
 

@@ -1,6 +1,7 @@
 import { APP_VERSION } from "@app/constants";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { RouteGenericInterface } from "fastify/types/route";
+import { ok } from "hot-utils";
 import { Server, IncomingMessage, ServerResponse } from "http";
 
 export const upcheck = async (
@@ -8,8 +9,8 @@ export const upcheck = async (
     reply: FastifyReply<Server, IncomingMessage, ServerResponse, RouteGenericInterface, unknown>
 ) => {
     reply.status(200);
-    return {
+    return ok({
         version: APP_VERSION,
         up: true
-    };
+    });
 };

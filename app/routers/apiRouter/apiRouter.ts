@@ -7,6 +7,7 @@ import {
 import { addRepoPlugin, addAuthPlugin } from "@app/server/plugins";
 import { generalErrors } from "@app/server/swagger/generalErrors";
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
+import { ok } from "hot-utils";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const apiRouter = (app: FastifyInstance, _options: FastifyPluginOptions, next: (err?: Error | undefined) => void) => {
@@ -19,23 +20,27 @@ export const apiRouter = (app: FastifyInstance, _options: FastifyPluginOptions, 
             response: {
                 "2xx": {
                     description: "Successful response",
-                    required: ["from", "to"],
                     type: "object",
                     properties: {
                         isOk: { type: "boolean" },
-                        from: { type: "number", minimum: STOCKS_FROM },
-                        to: { type: "number", maximum: STOCKS_TO },
+                        result: {
+                            type: "object",
+                            required: ["from", "to"],
+                            properties: {
+                                from: { type: "number", minimum: STOCKS_FROM },
+                                to: { type: "number", maximum: STOCKS_TO },
+                            }
+                        }
                     },
                 }
             },
             ...generalErrors
         },
         handler: () => {
-            return {
-                isOk: true,
+            return ok({
                 from: STOCKS_FROM,
                 to: STOCKS_TO
-            };
+            });
         }
     });
     app.get("/stocks", { schema: stocksSchema }, stocks);

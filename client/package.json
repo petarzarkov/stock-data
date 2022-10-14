@@ -1,5 +1,5 @@
 {
-  "name": "petarzarkov-biscuit-machine",
+  "name": "petarzarkov-stocks-app",
   "description": "Stocks App made with Vite, React, Typescript",
   "keywords": [
     "Stocks, Petar, Zarkov, Vite, React, Typescript"
@@ -23,7 +23,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "4.4.0",
-    "react-router-dom": "6.4.2"
+    "react-router-dom": "6.4.2",
+    "formik": "2.2.9"
   },
   "devDependencies": {
     "@types/node": "workspace:*",

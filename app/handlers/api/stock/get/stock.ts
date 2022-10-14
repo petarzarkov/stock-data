@@ -1,13 +1,12 @@
 import { StockAttributes } from "@db/models";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { RouteGenericInterface } from "fastify/types/route";
-import { fail, IFailResult, IOkResult, ok } from "hot-utils";
+import { fail, ok } from "hot-utils";
 import { Server, IncomingMessage, ServerResponse } from "http";
 import { Op } from "sequelize";
 import { StocksRepo } from "@db/repositories";
-
-export type StocksRequest = { from: number; to: number };
-export type StocksResponse = IFailResult | IOkResult<{ from: number; to: number; profit: number }>;
+import { StocksRequest } from "@contracts/StocksRequest";
+import { StocksResponse } from "@contracts/StocksResponse";
 
 export const stocks = async (
     req: FastifyRequest<{ Querystring: StocksRequest }, Server, IncomingMessage>,

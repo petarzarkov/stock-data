@@ -8,14 +8,9 @@ export const API_TOKEN = process.env.API_TOKEN || "dev";
 export const APP_VERSION = process.env.npm_package_version || "unknown";
 
 /**
- * @default 3000
+ * @default 3001
  */
 export const SERVER_PORT = Number(process.env.PORT) || 3001;
-
-/**
- * @default 120000 ("2min")
- */
-export const CACHE_REFRESH_INTERVAL = Number(process.env.CACHE_REFRESH_INTERVAL) || 2 * 60 * 1000;
 
 /**
  * @default "2022-02-01T06:00:00.000Z" in unix ms
