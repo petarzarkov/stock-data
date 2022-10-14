@@ -1,0 +1,47 @@
+{
+  "name": "petarzarkov-biscuit-machine",
+  "description": "Stocks App made with Vite, React, Typescript",
+  "keywords": [
+    "Stocks, Petar, Zarkov, Vite, React, Typescript"
+  ],
+  "author": {
+    "name": "Petar Zarkov",
+    "email": "pzarko1@gmail.com"
+  },
+  "private": true,
+  "version": "0.0.2",
+  "scripts": {
+    "start": "vite",
+    "build": "tsc && vite build",
+    "build:watch": "tsc && vite build -w",
+    "lint": "tsc --noEmit && eslint -c .eslintrc.js --ext .ts,.tsx ./src --max-warnings 0",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "2.0.11",
+    "@chakra-ui/react": "2.3.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "4.4.0",
+    "react-router-dom": "6.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "workspace:*",
+    "@types/parse-json": "4.0.0",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "@typescript-eslint/eslint-plugin": "workspace:*",
+    "@typescript-eslint/parser": "workspace:*",
+    "@vitejs/plugin-react": "2.1.0",
+    "eslint-plugin-react": "7.31.10",
+    "vite": "3.1.8",
+    "eslint": "workspace:*",
+    "typescript": "workspace:*"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

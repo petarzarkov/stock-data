@@ -19,7 +19,7 @@ module.exports = {
             },
             buyTime: {
                 allowNull: false,
-                type: Sequelize.DATE(3)
+                type: Sequelize.BIGINT
             },
             buyPrice: {
                 allowNull: false,
@@ -27,21 +27,12 @@ module.exports = {
             },
             sellTime: {
                 allowNull: false,
-                type: Sequelize.DATE(3)
+                type: Sequelize.BIGINT
             },
             sellPrice: {
                 allowNull: false,
                 type: Sequelize.DECIMAL(8, 2)
-            },
-            createdAt: {
-                allowNull: true,
-                type: Sequelize.DATE(3),
-                defaultValue: new Date()
-            },
-            updatedAt: {
-                allowNull: true,
-                type: Sequelize.DATE(3)
-            },
+            }
         });
     },
 

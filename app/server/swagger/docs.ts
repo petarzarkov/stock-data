@@ -1,4 +1,5 @@
 import { APP_VERSION, isProd } from "@app/constants";
+import { stockSchema, stockTypeSchema } from "@app/handlers";
 import { SwaggerOptions } from "@fastify/swagger";
 import { FastifySwaggerUiOptions } from "@fastify/swagger-ui";
 import { generalError } from "./generalErrors";
@@ -47,7 +48,9 @@ export const swagDocs: SwaggerOptions = {
             }
         },
         definitions: {
-            "GeneralError": generalError
+            "GeneralError": generalError,
+            "Stock": stockSchema,
+            "StockType": stockTypeSchema
         },
     }
 };

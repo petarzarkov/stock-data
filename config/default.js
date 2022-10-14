@@ -12,7 +12,7 @@ module.exports = {
         ],
         serializers: [{
             key: "event",
-            values: ["GET:/api/questions"],
+            values: ["GET:/api/stocks"],
             modifiers: [{ properties: ["response.payload"] }]
         }]
     }

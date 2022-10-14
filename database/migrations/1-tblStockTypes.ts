@@ -13,16 +13,7 @@ module.exports = {
                 allowNull: false,
                 unique: true,
                 type: Sequelize.STRING(128)
-            },
-            createdAt: {
-                allowNull: true,
-                type: Sequelize.DATE(3),
-                defaultValue: new Date()
-            },
-            updatedAt: {
-                allowNull: true,
-                type: Sequelize.DATE(3)
-            },
+            }
         });
     },
 

@@ -8,9 +8,7 @@ function mapTableToDTO(model: TblStocks): StockAttributes {
         buyPrice: model.buyPrice,
         buyTime: model.buyTime,
         sellPrice: model.sellPrice,
-        sellTime: model.sellTime,
-        createdAt: model.createdAt,
-        updatedAt: model.updatedAt
+        sellTime: model.sellTime
     };
 }
 

@@ -4,9 +4,7 @@ import { BaseSequelizeRepo } from "hot-utils";
 function mapTableToDTO(model: TblStockTypes): StockTypesAttributes {
     return {
         id: model.id,
-        type: model.type,
-        createdAt: model.createdAt,
-        updatedAt: model.updatedAt
+        type: model.type
     };
 }
 

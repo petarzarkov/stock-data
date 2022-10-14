@@ -85,7 +85,9 @@ const addLogger: FastifyPluginAsync<{ logger: HotLogger }> = async (
                 event: buildEvent(req),
                 request: parseRequestLog(req)
             });
-            reply.status(400).send(fail(error.message));
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+            const msg = error.validation.map(err => `${err.keyword} ${(err as unknown as { dataPath: string })?.dataPath} ${err.message}`).join(", ");
+            reply.status(400).send(fail(msg));
             return;
         }
 

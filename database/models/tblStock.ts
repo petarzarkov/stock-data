@@ -1,13 +1,13 @@
 import { InferAttributes, InferCreationAttributes } from "sequelize";
-import { Default, Column, DataType, Model, PrimaryKey, Table, HasOne } from "sequelize-typescript";
+import { Column, DataType, Model, PrimaryKey, Table, HasOne } from "sequelize-typescript";
 import TblStockTypes from "./tblStockTypes";
 
-export type StockAttributes = InferAttributes<TblStocks, { omit: "deletedAt" | "version" }>;
-export type StockCreationAttributes = InferCreationAttributes<TblStocks, { omit: "id" | "deletedAt" | "version" }>;
+export type StockAttributes = InferAttributes<TblStocks, { omit: "deletedAt" | "version" | "createdAt" | "updatedAt" }>;
+export type StockCreationAttributes = InferCreationAttributes<TblStocks, { omit: "id" | "deletedAt" | "version" | "createdAt" | "updatedAt" }>;
 
 @Table({
     tableName: "tblStocks",
-    timestamps: true,
+    timestamps: false,
     deletedAt: false,
     version: false
 })
@@ -22,9 +22,9 @@ export class TblStocks extends Model<StockAttributes, StockCreationAttributes> {
 
     @Column({
         allowNull: false,
-        type: DataType.DATE(3)
+        type: DataType.NUMBER
     })
-    declare public buyTime: Date;
+    declare public buyTime: number;
 
     @Column({
         allowNull: false,
@@ -34,29 +34,15 @@ export class TblStocks extends Model<StockAttributes, StockCreationAttributes> {
 
     @Column({
         allowNull: false,
-        type: DataType.DATE(3)
+        type: DataType.NUMBER
     })
-    declare public sellTime: Date;
+    declare public sellTime: number;
 
     @Column({
         allowNull: false,
         type: DataType.DECIMAL(8, 2)
     })
     declare public sellPrice: number;
-
-    @Default(new Date())
-    @Column({
-        allowNull: true,
-        type: DataType.DATE(3)
-    })
-    declare public createdAt: Date;
-
-    @Column({
-        allowNull: true,
-        type: DataType.DATE(3)
-    })
-    declare public updatedAt?: Date;
-
 }
 
 export default TblStocks;

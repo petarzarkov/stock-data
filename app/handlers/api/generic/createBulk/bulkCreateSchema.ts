@@ -4,8 +4,6 @@ import { FastifySchema } from "fastify";
 
 export const bulkCreateSchema = (type: string, tag?: string): FastifySchema & Record<string, unknown> => {
     const schema = getItemSchemaPerType(type);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id, ...rest } = schema?.properties || {};
     const [, ...required] = schema?.required || [];
 
     return {
@@ -17,7 +15,7 @@ export const bulkCreateSchema = (type: string, tag?: string): FastifySchema & Re
             items: {
                 type: schema?.type,
                 required,
-                properties: rest
+                properties: schema?.properties
             }
         },
         response: {

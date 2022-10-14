@@ -1,12 +1,12 @@
 import { InferAttributes, InferCreationAttributes } from "sequelize";
-import { Default, Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
+import { Column, DataType, Model, PrimaryKey, Table } from "sequelize-typescript";
 
-export type StockTypesAttributes = InferAttributes<TblStockTypes, { omit: "deletedAt" | "version" }>;
-export type StockTypesCreationAttributes = InferCreationAttributes<TblStockTypes, { omit: "id" | "deletedAt" | "version" }>;
+export type StockTypesAttributes = InferAttributes<TblStockTypes, { omit: "deletedAt" | "version" | "createdAt" | "updatedAt" }>;
+export type StockTypesCreationAttributes = InferCreationAttributes<TblStockTypes, { omit: "id" | "deletedAt" | "version" | "createdAt" | "updatedAt" }>;
 
 @Table({
     tableName: "tblStockTypes",
-    timestamps: true,
+    timestamps: false,
     deletedAt: false,
     version: false
 })
@@ -21,20 +21,6 @@ export class TblStockTypes extends Model<StockTypesAttributes, StockTypesCreatio
         unique: true
     })
     declare public type: string;
-
-    @Default(new Date())
-    @Column({
-        allowNull: true,
-        type: DataType.DATE(3)
-    })
-    declare public createdAt: Date;
-
-    @Column({
-        allowNull: true,
-        type: DataType.DATE(3)
-    })
-    declare public updatedAt?: Date;
-
 }
 
 export default TblStockTypes;

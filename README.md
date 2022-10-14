@@ -21,7 +21,7 @@
 - [Get stock](https://stock-data.herokuapp.com/api/stock) -->
 
 ## Development
-
+- `npm i -g pnpm`
 - Setup DB
   - with docker compose, from root dir run, tomato
     - `docker-compose up`
@@ -31,7 +31,7 @@
     - run it
         - `docker container run -d -p 5445:5445 stock-data-db:local`
   - Migrate and seed the db
-    - `npm install`
+    - `pnpm install`
     - `npm run db:update`
 - Start the service
   - `npm start`

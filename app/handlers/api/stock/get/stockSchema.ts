@@ -1,18 +1,17 @@
+import { STOCKS_FROM, STOCKS_TO } from "@app/constants";
 import { generalErrors } from "@app/server/swagger/generalErrors";
 import { FastifySchema } from "fastify";
 
 export const stockSchema = {
     type: "object",
-    required: ["id", "typeId", "buyTime", "buyPrice", "sellTime", "sellPrice", "createdAt"],
+    required: ["id", "typeId", "buyTime", "buyPrice", "sellTime", "sellPrice"],
     properties: {
         id: { type: "string", format: "uuid" },
         typeId: { type: "string", format: "uuid" },
-        buyTime: { type: "string", format: "date" },
+        buyTime: { type: "number", minimum: STOCKS_FROM },
         buyPrice: { type: "number" },
-        sellTime: { type: "string", format: "date" },
-        sellPrice: { type: "number" },
-        createdAt: { type: "string", format: "date" },
-        updatedAt: { type: "string", format: "date" },
+        sellTime: { type: "number", maximum: STOCKS_TO  },
+        sellPrice: { type: "number"}
     }
 };
 
@@ -24,8 +23,8 @@ export const stocksSchema: FastifySchema & Record<string, unknown> = {
         type: "object",
         additionalProperties: false,
         properties: {
-            from: { type: "string", format: "date" },
-            to: { type: "string", format: "date" },
+            from: { type: "number", minimum: STOCKS_FROM },
+            to: { type: "number", maximum: STOCKS_TO }
         }
     },
     response: {
@@ -35,9 +34,12 @@ export const stocksSchema: FastifySchema & Record<string, unknown> = {
             properties: {
                 isOk: { type: "boolean" },
                 result: {
-                    type: "array",
-                    nullable: true,
-                    items: stockSchema
+                    type: "object",
+                    properties: {
+                        from: { type: "number", minimum: STOCKS_FROM },
+                        to: { type: "number", maximum: STOCKS_TO },
+                        profit: { type: "number" },
+                    }
                 },
             }
         },

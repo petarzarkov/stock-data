@@ -23,8 +23,8 @@ export const apiRouter = (app: FastifyInstance, _options: FastifyPluginOptions, 
                     type: "object",
                     properties: {
                         isOk: { type: "boolean" },
-                        from: { type: "string" },
-                        to: { type: "string" },
+                        from: { type: "number", minimum: STOCKS_FROM },
+                        to: { type: "number", maximum: STOCKS_TO },
                     },
                 }
             },
