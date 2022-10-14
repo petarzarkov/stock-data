@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "description": "Stock Data Web App + API",
   "engines": {
-    "node": ">= 14.16.0",
-    "pnpm": ">= 7.2.1"
+    "node": "16.x"
   },
   "main": "build/app/main.js",
   "scripts": {
