@@ -15,12 +15,7 @@ export const serviceRouter = (app: FastifyInstance, _options: FastifyPluginOptio
     app.get("/healthcheck", {
         schema: {
             description: "Is service healthy",
-            tags: ["Service"],
-            security: [
-                {
-                    "apitoken": []
-                }
-            ]
+            tags: ["Service"]
         },
         preHandler: checkHeader,
         handler: healthcheck

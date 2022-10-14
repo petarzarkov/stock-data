@@ -9,7 +9,7 @@
     "email": "pzarko1@gmail.com"
   },
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.1",
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
@@ -24,9 +24,7 @@
     "react-dom": "18.2.0",
     "react-icons": "4.4.0",
     "react-router-dom": "6.4.2",
-    "formik": "2.2.9"
-  },
-  "devDependencies": {
+    "formik": "2.2.9",
     "@types/node": "18.8.5",
     "@types/parse-json": "4.0.0",
     "@types/react": "18.0.21",

@@ -13,11 +13,8 @@ export const baseServerCall = async <Response = Record<string, unknown>>(path: s
             }
         });
     }
-    const raw = await fetch(url, {
-        headers: {
-            apitoken: "dev"
-        }
-    });
+
+    const raw = await fetch(url);
 
     const res = await raw.json() as BaseApiResponse<Response>;
     return res;
