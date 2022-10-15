@@ -1,4 +1,3 @@
-import type { StockAttributes } from "../database/models/tblStock";
 import type { BaseApiResponse } from "./BaseApiResponse";
 
 export type StocksResponseData = {
@@ -10,6 +9,13 @@ export type StocksResponseData = {
     totalCost: number;
     totalProfit: number;
     totalSalesInPeriod: number;
-    sales: StockAttributes[];
+    sales: {
+        id: string;
+        typeId: string;
+        buyTime: number;
+        buyPrice: number;
+        sellTime: number;
+        sellPrice: number;
+    }[];
 };
 export type StocksResponse = BaseApiResponse<StocksResponseData>;

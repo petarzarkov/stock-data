@@ -33,7 +33,7 @@ export const stocks = async (
         return fail("Sorry, nothing found for the given query.");
     }
 
-    const highestProfitable = stocks.result.reduce((prev, curr) => {
+    const highestProfitables = stocks.result.reduce((prev, curr) => {
         const profit = curr.sellPrice - curr.buyPrice;
         if (!prev.length) {
             return [{
@@ -52,7 +52,7 @@ export const stocks = async (
             }];
         }
 
-        if (prevO?.profit < profit) {
+        if (prevO?.profit < profit && prevO?.buyPrice > curr.buyPrice) {
             return [{
                 ...curr,
                 profit
@@ -61,15 +61,16 @@ export const stocks = async (
 
         return prev;
 
-    }, [] as (StockAttributes & { profit: number })[])[0];
+    }, [] as (StockAttributes & { profit: number })[]);
 
+    const highestProfitable = highestProfitables[0];
     const amountUserCouldveBought = balance / highestProfitable.buyPrice;
     return ok({
         from: new Date(highestProfitable.buyTime).toUTCString(),
         to: new Date(highestProfitable.sellTime).toUTCString(),
         affordableAmount: amountUserCouldveBought,
         costPerUnit: highestProfitable.buyPrice,
-        profitPerUnit: highestProfitable.sellPrice,
+        profitPerUnit: highestProfitable.profit,
         totalCost: amountUserCouldveBought * highestProfitable.buyPrice,
         totalProfit: amountUserCouldveBought * highestProfitable.profit,
         totalSalesInPeriod: stocks.result.length,
