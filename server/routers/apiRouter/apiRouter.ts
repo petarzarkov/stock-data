@@ -44,6 +44,8 @@ export const apiRouter = (app: FastifyInstance, _options: FastifyPluginOptions, 
         }
     });
     app.get("/stocks", { schema: stocksSchema }, stocks);
+    // TO DO paginate this
+    // app.get("/stocks/history", { schema: getAllSchema("stock", "stocks") }, getAll);
     app.get("/stocks/random", { schema: getRandomSchema("stock", "stocks") }, getRandom);
     app.get("/stock/types", { schema: getAllSchema("stock/types") }, getAll);
 
