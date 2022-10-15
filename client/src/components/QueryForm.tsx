@@ -8,18 +8,19 @@ import {
     InputGroup,
     useColorModeValue,
     Text,
-    VStack,
     FormErrorMessage
 } from "@chakra-ui/react";
-import { BaseModal, Title } from "@components";
+import { BackTop, BaseModal, Title } from "@components";
 import { Field, Form, Formik, FieldProps } from "formik";
 import { useThemeProvider } from "@hooks";
 import { getOptimalStock } from "@store";
+import ReactJson from "react-json-view";
+import type { StocksResponse } from "../../../contracts/StocksResponse";
 
-type FormValues = { from: string; to: string };
+type FormValues = { from: string; to: string; balance: number };
 
 export const QueryForm = () => {
-    const [showModal, setShowModal] = useState<{ show: boolean; response: `${string};${string}` }>({ show: false, response: "OK;OK?" });
+    const [showModal, setShowModal] = useState<{ show: true; response: StocksResponse } | { show: false }>({ show: false });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const { from, to } = useThemeProvider();
 
@@ -47,18 +48,15 @@ export const QueryForm = () => {
         const [hoursTo, minutesTo] = values.to.split(":");
         const payload = {
             from: new Date(utcDates.from.fullDatetime.replace(`${utcDates.from.hours}:${utcDates.from.minutes}`, `${hoursFrom}:${minutesFrom}`)).getTime(),
-            to: new Date(utcDates.to.fullDatetime.replace(`${utcDates.to.hours}:${utcDates.to.minutes}}`, `${hoursTo}:${minutesTo}`)).getTime()
+            to: new Date(utcDates.to.fullDatetime.replace(`${utcDates.to.hours}:${utcDates.to.minutes}}`, `${hoursTo}:${minutesTo}`)).getTime(),
+            balance: values.balance
         };
 
-        const res = await getOptimalStock(payload);
+        const response = await getOptimalStock(payload);
 
         setShowModal({
             show: true,
-            response: res.isOk && res.result ?
-                `Most optimal from:; ${new Date(res.result.from).toUTCString()}; To:; ${new Date(res.result.to).toUTCString()}; Profit:; ${res.result.profit.toString()}`
-                :
-                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                `Error; ${!res.isOk && res.error}`
+            response
         });
 
         setIsSubmitting(false);
@@ -85,12 +83,24 @@ export const QueryForm = () => {
             <BaseModal
                 title="Stocks evaluation"
                 content={
-                    <VStack>
-                        {showModal.response.split(";").map((r, i) => <Text key={`${r}-${i}`}>{r}</Text>)}
-                    </VStack>
+                    showModal.response.isOk?
+                        <>
+                            <ReactJson
+                                src={showModal.response.result || { err: "No data"}}
+                                name="StocksResult"
+                                collapsed={3}
+                                displayDataTypes={false}
+                                quotesOnKeys={false}
+                                theme="monokai"
+                            />
+
+                            <BackTop />
+                        </>
+                        :
+                        <Text>{`Error: ${showModal.response.error as string}`}</Text>
                 }
                 isOpen={showModal.show}
-                onClose={() => setShowModal({ show: false, response: "OK;OK?" })}
+                onClose={() => setShowModal({ show: false })}
             />
             }
 
@@ -101,11 +111,35 @@ export const QueryForm = () => {
                 color={useColorModeValue("primary.700", "primary.50")}
                 shadow="base">
                 <Formik<FormValues>
-                    initialValues={{ from: `${utcDates.from.hours}:${utcDates.from.minutes}:${utcDates.from.seconds}`, to: `${utcDates.to.hours}:${utcDates.to.minutes}:${utcDates.to.seconds}` }}
+                    initialValues={{
+                        from: `${utcDates.from.hours}:${utcDates.from.minutes}:${utcDates.from.seconds}`,
+                        to: `${utcDates.to.hours}:${utcDates.to.minutes}:${utcDates.to.seconds}`,
+                        balance: 1000
+                    }}
                     onSubmit={submitForm}
                 >
                     {() => (
                         <Form>
+                            <Field name='balance'>
+                                {({ field, form }: FieldProps<string | number | readonly string[] | undefined, FormValues>) => (
+                                    <FormControl
+                                        isRequired
+                                        marginBottom={5}
+                                        isInvalid={!!form.errors.balance && !!form.touched.balance}
+                                    >
+                                        <FormLabel htmlFor='balance'>{"Balance:"}</FormLabel>
+                                        <InputGroup>
+                                            <Input
+                                                {...field}
+                                                type="number"
+                                                id="balance"
+                                                min={1}
+                                            />
+                                        </InputGroup>
+                                        <FormErrorMessage>{form.errors.balance}</FormErrorMessage>
+                                    </FormControl>
+                                )}
+                            </Field>
                             <Field name='from' validate={validate}>
                                 {({ field, form }: FieldProps<string | number | readonly string[] | undefined, FormValues>) => (
                                     <FormControl

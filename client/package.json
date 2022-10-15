@@ -24,6 +24,7 @@
     "react-dom": "18.2.0",
     "react-icons": "4.4.0",
     "react-router-dom": "6.4.2",
+    "react-json-view": "1.21.3",
     "formik": "2.2.9",
     "@types/node": "18.8.5",
     "@types/parse-json": "4.0.0",

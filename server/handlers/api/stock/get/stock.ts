@@ -12,14 +12,14 @@ export const stocks = async (
     req: FastifyRequest<{ Querystring: StocksRequest }, Server, IncomingMessage>,
     reply: FastifyReply<Server, IncomingMessage, ServerResponse, RouteGenericInterface>
 ): Promise<StocksResponse> => {
-    const { from, to } = req.query || {};
+    const { from, to, balance } = req.query || {};
 
     const stocks = await (req.repo as typeof StocksRepo)?.getAll({
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         requestId: req.id,
         where: {
-            buyTime: { [Op.gt]: from },
-            sellTime: { [Op.lt]: to },
+            buyTime: { [Op.gte]: from },
+            sellTime: { [Op.lte]: to },
         }
     });
 
@@ -28,7 +28,7 @@ export const stocks = async (
         return fail("Oops, something happened.");
     }
 
-    if (!stocks?.result) {
+    if (!stocks?.result?.length) {
         reply.status(404);
         return fail("Sorry, nothing found for the given query.");
     }
@@ -45,8 +45,15 @@ export const stocks = async (
         const prevO = prev?.[0];
         // If there is more than one best solution with equal profit, the service should
         // return the one that is earliest and shortest
-        if (prevO?.profit <= profit) {
-            return prevO.sellTime - prevO.buyTime < curr.sellTime - curr.buyTime ? prev : [{
+        if (prevO?.profit === profit) {
+            return (prevO.sellTime - prevO.buyTime) < (curr.sellTime - curr.buyTime) ? prev : [{
+                ...curr,
+                profit
+            }];
+        }
+
+        if (prevO?.profit < profit) {
+            return [{
                 ...curr,
                 profit
             }];
@@ -56,9 +63,16 @@ export const stocks = async (
 
     }, [] as (StockAttributes & { profit: number })[])[0];
 
+    const amountUserCouldveBought = balance / highestProfitable.buyPrice;
     return ok({
-        from: highestProfitable.buyTime,
-        to: highestProfitable.sellTime,
-        profit: highestProfitable.profit
+        from: new Date(highestProfitable.buyTime).toUTCString(),
+        to: new Date(highestProfitable.sellTime).toUTCString(),
+        affordableAmount: amountUserCouldveBought,
+        costPerUnit: highestProfitable.buyPrice,
+        profitPerUnit: highestProfitable.sellPrice,
+        totalCost: amountUserCouldveBought * highestProfitable.buyPrice,
+        totalProfit: amountUserCouldveBought * highestProfitable.profit,
+        totalSalesInPeriod: stocks.result.length,
+        sales: stocks.result
     });
 };

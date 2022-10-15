@@ -22,9 +22,11 @@ export const stocksSchema: FastifySchema & Record<string, unknown> = {
     querystring: {
         type: "object",
         additionalProperties: false,
+        required: ["from", "to", "balance"],
         properties: {
             from: { type: "number", minimum: STOCKS_FROM },
-            to: { type: "number", maximum: STOCKS_TO }
+            to: { type: "number", maximum: STOCKS_TO },
+            balance: { type: "number" }
         }
     },
     response: {
@@ -36,9 +38,18 @@ export const stocksSchema: FastifySchema & Record<string, unknown> = {
                 result: {
                     type: "object",
                     properties: {
-                        from: { type: "number", minimum: STOCKS_FROM },
-                        to: { type: "number", maximum: STOCKS_TO },
-                        profit: { type: "number" },
+                        from: { type: "string" },
+                        to: { type: "string" },
+                        affordableAmount: { type: "number" },
+                        costPerUnit: { type: "number" },
+                        profitPerUnit: { type: "number" },
+                        totalCost: { type: "number" },
+                        totalProfit: { type: "number" },
+                        totalSalesInPeriod: { type: "number" },
+                        sales: {
+                            type: "array",
+                            items: stockSchema
+                        }
                     }
                 },
             }
