@@ -13,7 +13,7 @@ declare module "fastify" {
 
 const repos = {
     stocks: StocksRepo,
-    stockTypes: StockTypesRepo
+    "stock/types": StockTypesRepo
 };
 
 const reposKeys = Object.keys(repos);
