@@ -1,4 +1,4 @@
-import type { StockAttributes } from "@db/models";
+import type { StockAttributes } from "../database/models/tblStock";
 import type { BaseApiResponse } from "./BaseApiResponse";
 
 export type StocksResponseData = {
