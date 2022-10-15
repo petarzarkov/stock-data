@@ -11,7 +11,6 @@ export default defineConfig(({ mode }) => {
         build: {
             emptyOutDir: true,
             rollupOptions: {
-                external: ["framer-motion", "@emotion/react", "@emotion/styled"],
                 output: {
                     manualChunks: {
                         "react": ["react"],
