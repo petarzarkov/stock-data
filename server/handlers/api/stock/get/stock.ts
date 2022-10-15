@@ -66,14 +66,16 @@ export const stocks = async (
     const highestProfitable = highestProfitables[0];
     const amountUserCouldveBought = balance / highestProfitable.buyPrice;
     return ok({
-        from: new Date(highestProfitable.buyTime).toUTCString(),
-        to: new Date(highestProfitable.sellTime).toUTCString(),
+        from: new Date(from).toUTCString(),
+        to: new Date(to).toUTCString(),
+        optimalFrom: new Date(highestProfitable.buyTime).toUTCString(),
+        optimalTo: new Date(highestProfitable.sellTime).toUTCString(),
         affordableAmount: amountUserCouldveBought,
         costPerUnit: highestProfitable.buyPrice,
         profitPerUnit: highestProfitable.profit,
         totalCost: amountUserCouldveBought * highestProfitable.buyPrice,
         totalProfit: amountUserCouldveBought * highestProfitable.profit,
         totalSalesInPeriod: stocks.result.length,
-        sales: stocks.result
+        salesInOptimalPeriod: stocks.result.filter(sale => sale.buyTime >= highestProfitable.buyTime && sale.sellTime <= highestProfitable.sellTime)
     });
 };

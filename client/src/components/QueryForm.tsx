@@ -29,6 +29,7 @@ export const QueryForm = () => {
 
         return r < 10 ? `0${r}` : r;
     };
+
     const getUtcDate = (ms: number) => ({
         fullDatetime: new Date(ms).toUTCString(),
         hours: getTimeFormatted(() => new Date(ms).getUTCHours()),
@@ -46,6 +47,7 @@ export const QueryForm = () => {
 
         const [hoursFrom, minutesFrom] = values.from.split(":");
         const [hoursTo, minutesTo] = values.to.split(":");
+        // TODO fix building of dates
         const payload = {
             from: new Date(utcDates.from.fullDatetime.replace(`${utcDates.from.hours}:${utcDates.from.minutes}`, `${hoursFrom}:${minutesFrom}`)).getTime(),
             to: new Date(utcDates.to.fullDatetime.replace(`${utcDates.to.hours}:${utcDates.to.minutes}}`, `${hoursTo}:${minutesTo}`)).getTime(),
