@@ -14,6 +14,10 @@ export const stocks = async (
 ): Promise<StocksResponse> => {
     const { from, to, balance } = req.query || {};
 
+    if (from >= to) {
+        reply.status(400);
+        return fail("Bad request, property 'from' cannot be bigger or equal to property 'to'.");
+    }
     const stocks = await (req.repo as typeof StocksRepo)?.getAll({
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         requestId: req.id,

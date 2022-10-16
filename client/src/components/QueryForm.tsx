@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import React, { useState } from "react";
 import {
     Box,
@@ -15,14 +18,14 @@ import { Field, Form, Formik, FieldProps } from "formik";
 import { useThemeProvider } from "@hooks";
 import { getOptimalStock } from "@store";
 import ReactJson from "react-json-view";
-import type { StocksResponse } from "../../../contracts/StocksResponse";
+import type { Stock, StocksResponse } from "../../../contracts/StocksResponse";
 
 type FormValues = { from: string; to: string; balance: number };
 
 export const QueryForm = () => {
     const [showModal, setShowModal] = useState<{ show: true; response: StocksResponse } | { show: false }>({ show: false });
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const { from, to } = useThemeProvider();
+    const { from, to, setStockData } = useThemeProvider();
 
     const getTimeFormatted = (cb: () => number) => {
         const r = cb();
@@ -47,14 +50,21 @@ export const QueryForm = () => {
 
         const [hoursFrom, minutesFrom] = values.from.split(":");
         const [hoursTo, minutesTo] = values.to.split(":");
-        // TODO fix building of dates
         const payload = {
             from: new Date(utcDates.from.fullDatetime.replace(`${utcDates.from.hours}:${utcDates.from.minutes}`, `${hoursFrom}:${minutesFrom}`)).getTime(),
-            to: new Date(utcDates.to.fullDatetime.replace(`${utcDates.to.hours}:${utcDates.to.minutes}}`, `${hoursTo}:${minutesTo}`)).getTime(),
+            to: new Date(utcDates.to.fullDatetime.replace(`${utcDates.to.hours}:${utcDates.to.minutes}`, `${hoursTo}:${minutesTo}`)).getTime(),
             balance: values.balance
         };
 
         const response = await getOptimalStock(payload);
+
+        if (response.isOk && response.result && response.result.salesInOptimalPeriod.length) {
+            setStockData(response.result.salesInOptimalPeriod.map((sale) => {
+                const { id, typeId, ...rest } = sale;
+
+                return rest as Omit<Stock, "id" | "typeId">;
+            }));
+        }
 
         setShowModal({
             show: true,
