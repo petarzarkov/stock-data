@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import React, { useState } from "react";
 import {
     Box,
@@ -18,7 +15,7 @@ import { Field, Form, Formik, FieldProps } from "formik";
 import { useThemeProvider } from "@hooks";
 import { getOptimalStock } from "@store";
 import ReactJson from "react-json-view";
-import type { Stock, StocksResponse } from "../../../contracts/StocksResponse";
+import type { StocksResponse } from "../../../contracts/StocksResponse";
 
 type FormValues = { from: string; to: string; balance: number };
 
@@ -59,11 +56,7 @@ export const QueryForm = () => {
         const response = await getOptimalStock(payload);
 
         if (response.isOk && response.result && response.result.salesInOptimalPeriod.length) {
-            setStockData(response.result.salesInOptimalPeriod.map((sale) => {
-                const { id, typeId, ...rest } = sale;
-
-                return rest as Omit<Stock, "id" | "typeId">;
-            }));
+            setStockData(response.result.salesInOptimalPeriod);
         }
 
         setShowModal({

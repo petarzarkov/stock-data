@@ -3,7 +3,7 @@ import { storeData, getData, getPeriodRanges } from "@store";
 import { ProviderBase, ThemeContext, ContextSettings } from "./ThemeContext";
 import { themes, ColorTheme } from "@theme";
 import { ChakraProvider } from "@chakra-ui/react";
-import type { Stock } from "../../../../contracts/StocksResponse";
+import type { Sale } from "../../../../contracts/StocksResponse";
 
 export class ThemeProvider extends React.Component<{ children: React.ReactNode }> {
     isSystemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -43,7 +43,7 @@ export class ThemeProvider extends React.Component<{ children: React.ReactNode }
         });
     };
 
-    setStockData = (data: Omit<Stock, "id" | "typeId">[]) => {
+    setStockData = (data: Sale[]) => {
         this.setState({
             stockData: data
         });

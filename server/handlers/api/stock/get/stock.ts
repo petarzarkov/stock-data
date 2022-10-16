@@ -80,6 +80,7 @@ export const stocks = async (
         totalCost: amountUserCouldveBought * highestProfitable.buyPrice,
         totalProfit: amountUserCouldveBought * highestProfitable.profit,
         totalSalesInPeriod: stocks.result.length,
-        salesInOptimalPeriod: stocks.result.filter(sale => sale.buyTime >= highestProfitable.buyTime && sale.sellTime <= highestProfitable.sellTime)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        salesInOptimalPeriod: stocks.result.filter(sale => sale.buyTime >= highestProfitable.buyTime && sale.sellTime <= highestProfitable.sellTime).map(({ id, typeId, ...rest }) => rest)
     });
 };
