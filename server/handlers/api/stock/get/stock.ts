@@ -25,6 +25,7 @@ export const stocks = async (
             buyTime: { [Op.gte]: from },
             sellTime: { [Op.lte]: to },
         }
+
     });
 
     if (!stocks?.isOk) {
@@ -80,7 +81,17 @@ export const stocks = async (
         totalCost: amountUserCouldveBought * highestProfitable.buyPrice,
         totalProfit: amountUserCouldveBought * highestProfitable.profit,
         totalSalesInPeriod: stocks.result.length,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        salesInOptimalPeriod: stocks.result.filter(sale => sale.buyTime >= highestProfitable.buyTime && sale.sellTime <= highestProfitable.sellTime).map(({ id, typeId, ...rest }) => rest)
+        latestSalesInOptimalPeriod: stocks.result
+            .filter(
+                (sale) => sale.buyTime >= highestProfitable.buyTime
+                    && sale.sellTime <= highestProfitable.sellTime
+                    && sale.buyTime >= highestProfitable.sellTime - (1000 * 60 * 5) // showing only latest 5 minutes of optimalPeriod sales
+            )
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            .map(({ id, typeId, ...rest }) => ({
+                ...rest,
+                buyTime: new Date(rest.buyTime).toUTCString(),
+                sellTime: new Date(rest.sellTime).toUTCString()
+            }))
     });
 };

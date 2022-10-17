@@ -48,15 +48,15 @@ export const stocksSchema: FastifySchema & Record<string, unknown> = {
                         totalCost: { type: "number" },
                         totalProfit: { type: "number" },
                         totalSalesInPeriod: { type: "number" },
-                        salesInOptimalPeriod: {
+                        latestSalesInOptimalPeriod: {
                             type: "array",
                             items: {
                                 type: "object",
                                 required: ["buyTime", "buyPrice", "sellTime", "sellPrice"],
                                 properties: {
-                                    buyTime: { type: "number", minimum: STOCKS_FROM },
+                                    buyTime: { type: "string" },
                                     buyPrice: { type: "number" },
-                                    sellTime: { type: "number", maximum: STOCKS_TO  },
+                                    sellTime: { type: "string" },
                                     sellPrice: { type: "number"}
                                 }
                             }

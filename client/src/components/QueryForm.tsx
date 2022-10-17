@@ -22,7 +22,7 @@ type FormValues = { from: string; to: string; balance: number };
 export const QueryForm = () => {
     const [showModal, setShowModal] = useState<{ show: true; response: StocksResponse } | { show: false }>({ show: false });
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const { from, to, setStockData } = useThemeProvider();
+    const { from, to } = useThemeProvider();
 
     const getTimeFormatted = (cb: () => number) => {
         const r = cb();
@@ -54,10 +54,6 @@ export const QueryForm = () => {
         };
 
         const response = await getOptimalStock(payload);
-
-        if (response.isOk && response.result && response.result.salesInOptimalPeriod.length) {
-            setStockData(response.result.salesInOptimalPeriod);
-        }
 
         setShowModal({
             show: true,
@@ -93,10 +89,10 @@ export const QueryForm = () => {
                             <ReactJson
                                 src={showModal.response.result || { err: "No data"}}
                                 name="StocksResult"
-                                collapsed={3}
+                                collapsed={1}
                                 displayDataTypes={false}
                                 quotesOnKeys={false}
-                                theme="monokai"
+                                theme="rjv-default"
                             />
 
                             <BackTop />

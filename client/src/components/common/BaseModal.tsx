@@ -3,8 +3,8 @@ import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButto
 
 export const BaseModal: FC<{ content: ReactElement | string; title: string; isOpen: boolean; onClose: () => void }> =
 ({ content, title, isOpen, onClose }) => {
-    const color = useColorModeValue("primary.900", "primary.300");
-    const colorInverse = useColorModeValue("primary.300", "primary.900");
+    const color = useColorModeValue("primary.300", "primary.100");
+    const colorInverse = useColorModeValue("primary.100", "primary.300");
     return (
         <>
             <Modal

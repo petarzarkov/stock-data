@@ -1,9 +1,9 @@
 import type { BaseApiResponse } from "./BaseApiResponse";
 
 export type Sale = {
-    buyTime: number;
+    buyTime: string;
     buyPrice: number;
-    sellTime: number;
+    sellTime: string;
     sellPrice: number;
 };
 
@@ -18,6 +18,6 @@ export type StocksResponseData = {
     totalCost: number;
     totalProfit: number;
     totalSalesInPeriod: number;
-    salesInOptimalPeriod: Sale[];
+    latestSalesInOptimalPeriod: Sale[];
 };
 export type StocksResponse = BaseApiResponse<StocksResponseData>;

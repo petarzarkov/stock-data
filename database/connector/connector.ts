@@ -44,7 +44,7 @@ const establishConnection = async ({ config, models }: { config: SequelizeOption
         validateOnly: false,
         pool: { max: 50 },
         benchmark: true,
-        logging: false,
+        logging: true,
         models: models || [TblStockTypes, TblStocks],
         logQueryParameters: true,
     };

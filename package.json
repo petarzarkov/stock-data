@@ -27,7 +27,7 @@
     "lint": "eslint -c .eslintrc.js --ext .ts,.tsx --max-warnings 0",
     "lint:fix": "npm run lint --fix",
     "heroku-prebuild": "npm i && npm --prefix ./client install --force",
-    "heroku-postbuild": "npm run db:update && npm --prefix ./client run build",
+    "heroku-postbuild": "npm run db:revert && npm run db:update && npm --prefix ./client run build",
     "heroku-cleanup": "npm prune && rm -r ./client/node_modules"
   },
   "repository": {
